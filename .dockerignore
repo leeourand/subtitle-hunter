@@ -1,0 +1,27 @@
+# Ignore development files
+.git
+.gitignore
+README.md
+.env
+.env.example
+
+# Ignore build artifacts
+subtitle-hunt
+*.log
+
+# Ignore temporary files
+.DS_Store
+*.tmp
+*.temp
+
+# Ignore downloads directory (will be created in container)
+downloads/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore test files
+*_test.go

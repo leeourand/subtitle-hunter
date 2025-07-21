@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  subtitle-hunt:
+    image: ghcr.io/your-username/subtitle-hunt:latest  # Update with your GitHub username
+    container_name: subtitle-hunt
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - JELLYFIN_URL=${JELLYFIN_URL}
+      - JELLYFIN_API_KEY=${JELLYFIN_API_KEY}
+      - JELLYFIN_USER_ID=${JELLYFIN_USER_ID}
+      - OPENSUBTITLES_API_KEY=${OPENSUBTITLES_API_KEY}
+      - SUBTITLE_DIRECTORY=/app/downloads
+      - ENABLE_DIRECT_SAVE=${ENABLE_DIRECT_SAVE:-true}
+      - JELLYFIN_PATH_PREFIX=${JELLYFIN_PATH_PREFIX:-/data/media}
+      - CONTAINER_PATH_PREFIX=${CONTAINER_PATH_PREFIX:-/media}
+      - PORT=8080
+      - TZ=America/New_York  # Change to your timezone
+    volumes:
+      # Mount downloads directory to host (optional - for accessing downloaded subtitles)
+      - ./downloads:/app/downloads
+      # Mount your media directory for direct subtitle placement (recommended)
+      - /path/to/your/media:/media  # Update this path to match your media directory
+    # Run container as user with media directory permissions
+    user: "1000:1000"  # Update to match your user:group IDs
+    networks:
+      - subtitle-hunt-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  subtitle-hunt-network:
+    driver: bridge
