@@ -20,7 +20,7 @@ go run main.go
 go mod tidy
 
 # Test Docker build
-docker build -t subtitle-hunt .
+docker build -t subtitle-hunter .
 
 # Run with Docker Compose (development)
 docker-compose up -d

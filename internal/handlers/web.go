@@ -11,11 +11,11 @@ import (
 	"sort"
 	"strings"
 
-	"subtitle-hunt/config"
-	"subtitle-hunt/internal/jellyfin"
-	"subtitle-hunt/internal/opensubtitles"
-	"subtitle-hunt/internal/subtitle"
-	"subtitle-hunt/internal/translator"
+	"subtitle-hunter/config"
+	"subtitle-hunter/internal/jellyfin"
+	"subtitle-hunter/internal/opensubtitles"
+	"subtitle-hunter/internal/subtitle"
+	"subtitle-hunter/internal/translator"
 )
 
 type Handler struct {
@@ -554,7 +554,7 @@ func (h *Handler) canWriteToDirectory(dirPath string) bool {
 	}
 	
 	// Try to create a temporary file to test write permissions
-	tempFile := filepath.Join(dirPath, ".subtitle-hunt-write-test")
+	tempFile := filepath.Join(dirPath, ".subtitle-hunter-write-test")
 	file, err := os.Create(tempFile)
 	if err != nil {
 		log.Printf("Cannot write to directory %s: %v", dirPath, err)
@@ -579,7 +579,7 @@ func extractMovieName(videoPath string) string {
 func (h *Handler) StatusHandler(w http.ResponseWriter, r *http.Request) {
 	status := map[string]string{
 		"status": "ok",
-		"service": "subtitle-hunt",
+		"service": "subtitle-hunter",
 	}
 	
 	w.Header().Set("Content-Type", "application/json")

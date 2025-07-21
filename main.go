@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"subtitle-hunt/config"
-	"subtitle-hunt/internal/handlers"
-	"subtitle-hunt/internal/jellyfin"
-	"subtitle-hunt/internal/opensubtitles"
+	"subtitle-hunter/config"
+	"subtitle-hunter/internal/handlers"
+	"subtitle-hunter/internal/jellyfin"
+	"subtitle-hunter/internal/opensubtitles"
 )
 
 func main() {
@@ -36,7 +36,7 @@ func main() {
 	http.HandleFunc("/status", handler.StatusHandler)
 
 	addr := fmt.Sprintf(":%d", cfg.Port)
-	log.Printf("Starting subtitle-hunt server on %s", addr)
+	log.Printf("Starting subtitle-hunter server on %s", addr)
 	log.Printf("Jellyfin URL: %s", cfg.JellyfinURL)
 	log.Printf("Web interface: http://localhost%s", addr)
 

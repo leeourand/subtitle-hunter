@@ -85,7 +85,7 @@ func (c *Client) SearchSubtitles(movieName string, imdbID string, language strin
 	
 	req.Header.Set("Api-Key", c.APIKey)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "subtitle-hunt v1.0")
+	req.Header.Set("User-Agent", "subtitle-hunter v1.0")
 	
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -145,7 +145,7 @@ func (c *Client) DownloadSubtitle(subtitle *Subtitle) ([]byte, error) {
 	req.Header.Set("Api-Key", c.APIKey)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", "subtitle-hunt v1.0")
+	req.Header.Set("User-Agent", "subtitle-hunter v1.0")
 	
 	resp, err := c.client.Do(req)
 	if err != nil {

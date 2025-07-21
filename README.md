@@ -17,10 +17,10 @@ A lightweight Go web application that automates subtitle downloading and transla
 
 ```bash
 # Download the production docker-compose file
-wget https://raw.githubusercontent.com/your-username/subtitle-hunt/main/docker-compose.prod.yml
+wget https://raw.githubusercontent.com/your-username/subtitle-hunter/main/docker-compose.prod.yml
 
 # Download environment template
-wget https://raw.githubusercontent.com/your-username/subtitle-hunt/main/.env.docker -O .env
+wget https://raw.githubusercontent.com/your-username/subtitle-hunter/main/.env.docker -O .env
 
 # Edit .env with your configuration
 nano .env
@@ -44,7 +44,7 @@ docker-compose -f docker-compose.prod.yml up -d
 ```bash
 # Clone the project
 git clone <repository-url>
-cd subtitle-hunt
+cd subtitle-hunter
 
 # Copy environment template
 cp .env.docker .env
@@ -113,7 +113,7 @@ go mod tidy
 go build
 
 # Run
-./subtitle-hunt
+./subtitle-hunter
 ```
 
 ### 2. Environment Variables
@@ -231,19 +231,19 @@ The container includes health checks that verify the application is responding c
 
 ```bash
 # View container logs
-docker-compose logs subtitle-hunt
+docker-compose logs subtitle-hunter
 
 # Follow logs in real-time
-docker-compose logs -f subtitle-hunt
+docker-compose logs -f subtitle-hunter
 ```
 
 ## Container Images
 
 Pre-built Docker images are automatically built and published via GitHub Actions:
 
-- **Latest stable**: `ghcr.io/your-username/subtitle-hunt:latest`
-- **Specific versions**: `ghcr.io/your-username/subtitle-hunt:v1.0.0`
-- **Development**: `ghcr.io/your-username/subtitle-hunt:main-<commit-sha>`
+- **Latest stable**: `ghcr.io/your-username/subtitle-hunter:latest`
+- **Specific versions**: `ghcr.io/your-username/subtitle-hunter:v1.0.0`
+- **Development**: `ghcr.io/your-username/subtitle-hunter:main-<commit-sha>`
 
 ### Supported Architectures
 

@@ -1,4 +1,4 @@
-module subtitle-hunt
+module subtitle-hunter
 
 go 1.21.4
 
