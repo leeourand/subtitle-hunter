@@ -144,7 +144,7 @@ func (h *Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Subtitle Hunt</title>
+    <title>Subtitle Hunter</title>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 

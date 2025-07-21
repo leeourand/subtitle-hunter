@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Application Overview
 
-Subtitle Hunt is a Go web application that automates subtitle downloading and translation for Jellyfin media servers. It finds media missing Traditional Chinese subtitles, downloads them from OpenSubtitles, or translates English subtitles using Google Translate while preserving SRT formatting.
+Subtitle Hunter is a Go web application that automates subtitle downloading and translation for Jellyfin media servers. It finds media missing Traditional Chinese subtitles, downloads them from OpenSubtitles, or translates English subtitles using Google Translate while preserving SRT formatting.
 
 ## Essential Commands
 

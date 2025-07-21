@@ -1,4 +1,4 @@
-# Subtitle Hunt
+# Subtitle Hunter
 
 A lightweight Go web application that automates subtitle downloading and translation for Jellyfin media servers. Perfect for running on low-powered NAS devices.
 
