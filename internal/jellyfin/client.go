@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"path/filepath"
 	"strings"
@@ -31,10 +30,16 @@ type MediaItem struct {
 		Path string `json:"Path"`
 	} `json:"MediaSources"`
 	MediaStreams []struct {
-		Type     string `json:"Type"`
-		Language string `json:"Language"`
-		Codec    string `json:"Codec"`
-		IsExternal bool  `json:"IsExternal"`
+		Type         string `json:"Type"`
+		Language     string `json:"Language"`
+		Codec        string `json:"Codec"`
+		IsExternal   bool   `json:"IsExternal"`
+		DisplayTitle string `json:"DisplayTitle"`
+		Title        string `json:"Title"`
+		Index        int    `json:"Index"`
+		IsDefault    bool   `json:"IsDefault"`
+		IsForced     bool   `json:"IsForced"`
+		Path         string `json:"Path"`
 	} `json:"MediaStreams"`
 }
 
@@ -92,12 +97,39 @@ func (c *Client) GetMediaWithoutChineseSubtitles() ([]MediaItem, error) {
 }
 
 func (c *Client) hasChineseSubtitle(item MediaItem) bool {
+	// Check MediaStreams for Chinese subtitles
+	chineseLanguageCodes := []string{"zh-TW", "zh-Hant", "chi"}
 	for _, stream := range item.MediaStreams {
-		if stream.Type == "Subtitle" && (stream.Language == "zh-TW" || stream.Language == "zh-Hant" || stream.Language == "chi") {
-			return true
+		if stream.Type == "Subtitle" {
+			// Check exact matches (case sensitive)
+			for _, code := range chineseLanguageCodes {
+				if stream.Language == code {
+					return true
+				}
+			}
+			
+			// Check case-insensitive matches to catch potential case issues
+			streamLangLower := strings.ToLower(stream.Language)
+			for _, code := range chineseLanguageCodes {
+				if streamLangLower == strings.ToLower(code) {
+					return true
+				}
+			}
+			
+			// Check DisplayTitle and Title fields for Chinese indicators
+			displayTitleLower := strings.ToLower(stream.DisplayTitle)
+			titleLower := strings.ToLower(stream.Title)
+			
+			chineseIndicators := []string{"traditional chinese", "繁體中文", "繁体中文", "zh-hant", "zh-tw", "chinese (traditional)"}
+			for _, indicator := range chineseIndicators {
+				if strings.Contains(displayTitleLower, indicator) || strings.Contains(titleLower, indicator) {
+					return true
+				}
+			}
 		}
 	}
 
+	// Check for external subtitle files
 	if len(item.MediaSources) > 0 {
 		videoPath := item.MediaSources[0].Path
 		dir := filepath.Dir(videoPath)
@@ -149,8 +181,6 @@ func (c *Client) RefreshMetadata(itemID string) error {
 
 func (c *Client) GetItem(itemID string) (*MediaItem, error) {
 	url := fmt.Sprintf("%s/Users/%s/Items/%s", c.BaseURL, c.UserID, itemID)
-	
-	log.Printf("DEBUG: Calling Jellyfin API: %s", url)
 	
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
